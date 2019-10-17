@@ -1,5 +1,7 @@
 {
   "name": "proCoffee",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
