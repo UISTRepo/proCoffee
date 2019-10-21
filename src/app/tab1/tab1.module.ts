@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
-import {PurchaseItemComponent} from '../purchase-item/purchase-item.component';
+import {PurchaseItemComponent} from '../popovers/purchase-item/purchase-item.component';
 
 @NgModule({
     imports: [

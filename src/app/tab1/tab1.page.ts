@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {PopoverController} from '@ionic/angular';
-import {PurchaseItemComponent} from '../purchase-item/purchase-item.component';
+import {PurchaseItemComponent} from '../popovers/purchase-item/purchase-item.component';
 import {Storage} from '@ionic/storage';
 
 @Component({
@@ -89,11 +89,10 @@ export class Tab1Page {
 
     }
 
-    async showOptions() {
+    async showOptions(item) {
         const popover = await this.popoverController.create({
             component: PurchaseItemComponent,
-            componentProps: { page: 'Login' },
-            cssClass: 'popover_class',
+            componentProps: { item: item }
         });
 
         return await popover.present();
