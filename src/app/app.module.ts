@@ -10,15 +10,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage';
+import {AddressPage} from './modals/address/address.page';
+import {CreditCardPage} from './modals/credit-card/credit-card.page';
+import {AddressPageModule} from './modals/address/address.module';
+import {CreditCardPageModule} from './modals/credit-card/credit-card.module';
 
 @NgModule({
     declarations: [AppComponent],
-    entryComponents: [],
+    entryComponents: [
+        AddressPage,
+        CreditCardPage
+    ],
     imports: [
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        IonicStorageModule.forRoot()
+        IonicStorageModule.forRoot(),
+        AddressPageModule,
+        CreditCardPageModule
     ],
     providers: [
         StatusBar,

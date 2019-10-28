@@ -31,7 +31,7 @@ export class PurchaseItemComponent implements OnInit {
             this.storage.get('proCoffee.address').then((address: any) => {
 
                 if(!address){
-                    this.dismissPopover(false);
+                    this.dismissPopover(true);
                 }
                 else{
                     this.addItemToCart(this.item);
@@ -76,13 +76,13 @@ export class PurchaseItemComponent implements OnInit {
 
             }
 
-            this.dismissPopover(true);
+            this.dismissPopover();
 
         });
 
     }
 
-    async dismissPopover(state) {
-        await this.popoverController.dismiss({storedAddress: state});
+    async dismissPopover(showAddressModal = false) {
+        await this.popoverController.dismiss({showAddress: showAddressModal});
     }
 }

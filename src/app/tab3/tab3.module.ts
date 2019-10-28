@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
-import {AddressPage} from '../modals/address/address.page';
-import {CreditCardPage} from '../modals/credit-card/credit-card.page';
 
 @NgModule({
     imports: [
@@ -15,13 +13,8 @@ import {CreditCardPage} from '../modals/credit-card/credit-card.page';
         RouterModule.forChild([{ path: '', component: Tab3Page }])
     ],
     declarations: [
-        Tab3Page,
-        AddressPage,
-        CreditCardPage
+        Tab3Page
     ],
-    entryComponents: [
-        AddressPage,
-        CreditCardPage
-    ]
+    entryComponents: []
 })
 export class Tab3PageModule {}

@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import {PurchaseItemComponent} from '../popovers/purchase-item/purchase-item.component';
-import {AddressPage} from '../modals/address/address.page';
 
 @NgModule({
     imports: [
@@ -16,12 +15,10 @@ import {AddressPage} from '../modals/address/address.page';
     ],
     declarations: [
         Tab1Page,
-        PurchaseItemComponent,
-        AddressPage
+        PurchaseItemComponent
     ],
     entryComponents: [
-        PurchaseItemComponent,
-        AddressPage
+        PurchaseItemComponent
     ]
 })
 export class Tab1PageModule {}

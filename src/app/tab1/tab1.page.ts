@@ -60,7 +60,7 @@ export class Tab1Page {
 
         const { data } = await popover.onWillDismiss();
 
-        if(data && !data.storedAddress){
+        if(data && data.showAddress){
             this.openAddressModal();
         }
     };

@@ -28,6 +28,7 @@ export class Tab3Page {
     }
 
     async openAddressModal() {
+        console.log(1);
         const modal = await this.modalCtrl.create({
             component: AddressPage
         });
@@ -35,8 +36,6 @@ export class Tab3Page {
         await modal.present();
 
         const { data } = await modal.onWillDismiss();
-
-        console.log(data);
 
         if(data && data.address){
             this.addressInfo = data;

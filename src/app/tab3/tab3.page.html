@@ -13,6 +13,7 @@
             <span *ngIf="!addressInfo">No</span>
             Stored Address
         </ion-card-title>
+        <ion-icon slot="end" color="primary" name="create" (click)="openAddressModal()"></ion-icon>
     </ion-item>
     <div *ngIf="!addressInfo">
         <ion-button size="full" (click)="openAddressModal()">Add it here</ion-button>
@@ -22,7 +23,6 @@
             <h2>{{addressInfo.address}}</h2>
             <h3>{{addressInfo.city}}, {{addressInfo.zip}}</h3>
         </ion-label>
-        <ion-icon slot="end" color="primary" name="create" (click)="openAddressModal()"></ion-icon>
     </ion-item>
     <ion-item>
         <ion-card-title>
