@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {PopoverController} from '@ionic/angular';
+import {ModalController, PopoverController} from '@ionic/angular';
 import {PurchaseItemComponent} from '../popovers/purchase-item/purchase-item.component';
 import {Storage} from '@ionic/storage';
+import {AddressPage} from '../modals/address/address.page';
 
 @Component({
     selector: 'app-tab1',
@@ -14,7 +15,8 @@ export class Tab1Page {
 
     constructor(
         public popoverController: PopoverController,
-        private storage: Storage
+        private storage: Storage,
+        private modalCtrl: ModalController
     ) {
 
         let item: any = {
@@ -48,53 +50,27 @@ export class Tab1Page {
 
     }
 
-    addItemToCart(item){
-
-        item.quantity = 1;
-
-        this.storage.get("proCoffee.myItems").then((data: any) => {
-            if(!data || data.length == 0){
-
-                let myItems: any = [
-                    item
-                ];
-
-                this.storage.set("proCoffee.myItems", myItems);
-            }
-            else{
-                let foundIndex: number = -1;
-
-                for(let i=0; i<data.length; i++){
-                    if(item.id == data[i].id){
-                        foundIndex = i;
-                        break;
-                    }
-                }
-
-                if(foundIndex > -1){
-                    data[foundIndex].quantity++;
-                }
-                else{
-                    data.push(item);
-                }
-
-                this.storage.set("proCoffee.myItems", data);
-
-            }
-
-            this.storage.get("proCoffee.myItems").then((data: any) => {
-                console.log(data);
-            });
-        });
-
-    }
-
     async showOptions(item) {
         const popover = await this.popoverController.create({
             component: PurchaseItemComponent,
             componentProps: { item: item }
         });
 
-        return await popover.present();
+        await popover.present();
+
+        const { data } = await popover.onWillDismiss();
+
+        if(data && !data.storedAddress){
+            this.openAddressModal();
+        }
     };
+
+    async openAddressModal() {
+        const modal = await this.modalCtrl.create({
+            component: AddressPage
+        });
+
+        await modal.present();
+    }
+
 }

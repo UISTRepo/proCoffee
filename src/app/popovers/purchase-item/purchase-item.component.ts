@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NavParams, PopoverController} from '@ionic/angular';
+import { NavParams, PopoverController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-purchase-item',
@@ -14,7 +15,8 @@ export class PurchaseItemComponent implements OnInit {
 
     constructor(
         private popoverController: PopoverController,
-        private navParams: NavParams
+        private navParams: NavParams,
+        private storage: Storage
     )
     {
         this.item = this.navParams.get('item');
@@ -25,14 +27,62 @@ export class PurchaseItemComponent implements OnInit {
     purchaseItem(){
 
         if(Number(this.type) == 0){
-            console.log(this.type);
-        }
 
-        this.popoverController.dismiss();
+            this.storage.get('proCoffee.address').then((address: any) => {
+
+                if(!address){
+                    this.dismissPopover(false);
+                }
+                else{
+                    this.addItemToCart(this.item);
+                }
+            });
+
+        }
 
     }
 
-    async dismissPopover() {
-        await this.popoverController.dismiss();
+    addItemToCart(item){
+
+        item.quantity = this.quantity;
+
+        this.storage.get("proCoffee.myItems").then((data: any) => {
+            if(!data || data.length == 0){
+
+                let myItems: any = [
+                    item
+                ];
+
+                this.storage.set("proCoffee.myItems", myItems);
+            }
+            else{
+                let foundIndex: number = -1;
+
+                for(let i=0; i<data.length; i++){
+                    if(item.id == data[i].id){
+                        foundIndex = i;
+                        break;
+                    }
+                }
+
+                if(foundIndex > -1){
+                    data[foundIndex].quantity++;
+                }
+                else{
+                    data.push(item);
+                }
+
+                this.storage.set("proCoffee.myItems", data);
+
+            }
+
+            this.dismissPopover(true);
+
+        });
+
+    }
+
+    async dismissPopover(state) {
+        await this.popoverController.dismiss({storedAddress: state});
     }
 }

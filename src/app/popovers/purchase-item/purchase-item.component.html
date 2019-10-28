@@ -1,8 +1,8 @@
 <ion-content>
 
-    <div class="ion-padding ion-text-center ion-text-wrap">
+    <ion-card-title class="ion-padding ion-text-center ion-text-wrap">
         How many {{item.title}}s you need?
-    </div>
+    </ion-card-title>
 
     <div class="ion-padding-horizontal ion-text-center">
         Total: {{quantity * item.price | currency}}
@@ -29,7 +29,7 @@
     <ion-row>
         <ion-col>
             <ion-button size="full" (click)="purchaseItem()">
-                Buy <span *ngIf="quantity > 1">&nbsp;x{{quantity}}</span>
+                Buy
             </ion-button>
         </ion-col>
         <ion-col>

@@ -11,7 +11,7 @@ const routes: Routes = [
     {
         path: '',
         loadChildren: './intro/intro.module#IntroPageModule'
-    },
+    }
 ];
 @NgModule({
     imports: [

@@ -10,7 +10,7 @@
     <ion-list>
 
         <ion-card *ngIf="!myItems || myItems.length == 0">
-            <ion-card-content text-center>
+            <ion-card-content class="ion-text-center">
                 You dont have any orders yet!
             </ion-card-content>
         </ion-card>
@@ -29,7 +29,7 @@
                     x{{item.quantity}}
                 </ion-badge>
             </ion-item>
-            <div text-center style="border-bottom: 1px solid #ccc">
+            <div class="ion-text-center" style="border-bottom: 1px solid #ccc">
                 <ion-row>
                     <ion-col>
                         <ion-button>Send Payment</ion-button>
