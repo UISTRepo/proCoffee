@@ -7,4 +7,29 @@
 
 <ion-content>
 
+
+    <ion-item>
+        <ion-label position="stacked">Credit Card Info</ion-label>
+        <ion-input placeholder="Name" [(ngModel)]="cardInfo.CardName" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-input placeholder="Card Number" [(ngModel)]="cardInfo.CardNo" [attr.maxlength]="16"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-input placeholder="Expiration Month" [(ngModel)]="cardInfo.ExpMonth" [attr.maxlength]="2"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-input placeholder="Expiration Year" [(ngModel)]="cardInfo.ExpYear"  [attr.maxlength]="2"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-input placeholder="CVC Code" [(ngModel)]="cardInfo.CVC" [attr.maxlength]="3"></ion-input>
+    </ion-item>
+
+
+    <ion-button size="full" (click)="storeCCInfo()">Store</ion-button>
+
 </ion-content>

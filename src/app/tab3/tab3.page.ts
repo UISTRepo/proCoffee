@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {ModalController} from '@ionic/angular';
+import {ModalController, Platform} from '@ionic/angular';
 import {CreditCardPage} from '../modals/credit-card/credit-card.page';
 import {AddressPage} from '../modals/address/address.page';
 
@@ -9,7 +9,7 @@ import {AddressPage} from '../modals/address/address.page';
     templateUrl: 'tab3.page.html',
     styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit{
 
     addressInfo: any = {};
     ccInfo: any = {};
@@ -22,13 +22,16 @@ export class Tab3Page {
             this.addressInfo = address;
         });
 
-        this.storage.get('proCoffee.credit_card').then((ccInfo: any) => {
+        this.storage.get('proCoffee.ccInfo').then((ccInfo: any) => {
             this.ccInfo = ccInfo;
         });
     }
 
+    ngOnInit() {
+
+    }
+
     async openAddressModal() {
-        console.log(1);
         const modal = await this.modalCtrl.create({
             component: AddressPage
         });
@@ -43,10 +46,18 @@ export class Tab3Page {
     }
 
     async openCreditCardModal() {
+
         const modal = await this.modalCtrl.create({
             component: CreditCardPage
         });
 
         await modal.present();
+
+        const { data } = await modal.onWillDismiss();
+
+        if(data && data.CardNo){
+            this.ccInfo = data;
+        }
+
     }
 }

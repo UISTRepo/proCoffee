@@ -32,7 +32,7 @@
             <div class="ion-text-center" style="border-bottom: 1px solid #ccc">
                 <ion-row>
                     <ion-col>
-                        <ion-button>Send Payment</ion-button>
+                        <ion-button (click)="sendPayment(item)">Send Payment</ion-button>
                     </ion-col>
                     <ion-col>
                         <ion-button color="danger" (click)="dismissItem(item)">Cancel</ion-button>
