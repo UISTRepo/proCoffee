@@ -9,7 +9,6 @@ import {Storage} from '@ionic/storage';
 })
 export class AddressPage implements OnInit {
 
-
     addressInfo: any = {};
 
     constructor(
