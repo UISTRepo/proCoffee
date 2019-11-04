@@ -14,6 +14,7 @@ import {AddressPage} from './modals/address/address.page';
 import {CreditCardPage} from './modals/credit-card/credit-card.page';
 import {AddressPageModule} from './modals/address/address.module';
 import {CreditCardPageModule} from './modals/credit-card/credit-card.module';
+import {Facebook} from '@ionic-native/facebook/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -32,7 +33,8 @@ import {CreditCardPageModule} from './modals/credit-card/credit-card.module';
     providers: [
         StatusBar,
         SplashScreen,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        Facebook
     ],
     bootstrap: [AppComponent]
 })

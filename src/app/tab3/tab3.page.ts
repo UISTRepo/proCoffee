@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {ModalController, Platform} from '@ionic/angular';
+import {ModalController} from '@ionic/angular';
 import {CreditCardPage} from '../modals/credit-card/credit-card.page';
 import {AddressPage} from '../modals/address/address.page';
+import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook/ngx';
 
 @Component({
     selector: 'app-tab3',
@@ -16,7 +17,8 @@ export class Tab3Page implements OnInit{
 
     constructor(
         private storage: Storage,
-        private modalCtrl: ModalController
+        private modalCtrl: ModalController,
+        private fb: Facebook
     ) {
         this.storage.get('proCoffee.address').then((address: any) => {
             this.addressInfo = address;
@@ -59,5 +61,28 @@ export class Tab3Page implements OnInit{
             this.ccInfo = data;
         }
 
+    }
+
+    logInWithFacebook(){
+        this.fb.login(['public_profile', 'user_friends', 'email'])
+            .then((res: FacebookLoginResponse) => {
+                this.collectFacebookUserData()
+            })
+            .catch(e => console.log('Error logging into Facebook', e));
+    }
+
+    collectFacebookUserData(){
+        this.fb.api('me?fields=id,name,email', []).then(data => {
+
+            let input: any = {
+                name: data.name,
+                email: data.email,
+                id: data.id,
+                photo: 'http://graph.facebook.com/' + data.id + '/picture?type='
+            };
+
+            console.log(input);
+
+        });
     }
 }
