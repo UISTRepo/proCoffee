@@ -7,6 +7,11 @@
 
 <ion-content>
 
+    <ion-fab *ngIf="showEdit" (click)="showCcInfo()" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="finger-print"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
     <ion-item>
         <ion-label position="stacked">Credit Card Info</ion-label>

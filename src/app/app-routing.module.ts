@@ -9,7 +9,7 @@ const routes: Routes = [
         loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
     },
     {
-        path: '',
+        path: 'intro',
         loadChildren: './intro/intro.module#IntroPageModule'
     }
 ];
@@ -33,7 +33,7 @@ export class AppRoutingModule {
                     this.navCtrl.navigateRoot('/tabs');
                 }
                 else{
-                    this.navCtrl.navigateRoot('/');
+                    this.navCtrl.navigateRoot('/intro');
                 }
             });
         });

@@ -15,6 +15,7 @@ import {CreditCardPage} from './modals/credit-card/credit-card.page';
 import {AddressPageModule} from './modals/address/address.module';
 import {CreditCardPageModule} from './modals/credit-card/credit-card.module';
 import {Facebook} from '@ionic-native/facebook/ngx';
+import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -34,7 +35,8 @@ import {Facebook} from '@ionic-native/facebook/ngx';
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        Facebook
+        Facebook,
+        AndroidFingerprintAuth
     ],
     bootstrap: [AppComponent]
 })

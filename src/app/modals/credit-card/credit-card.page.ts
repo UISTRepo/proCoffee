@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ModalController, ToastController} from '@ionic/angular';
+import {ModalController, Platform, ToastController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 import {debug} from 'util';
+import {AndroidFingerprintAuth} from '@ionic-native/android-fingerprint-auth/ngx';
 
 @Component({
     selector: 'app-credit-card',
@@ -11,19 +12,58 @@ import {debug} from 'util';
 export class CreditCardPage implements OnInit {
 
     cardInfo: any = {};
+    tempInfo: any = {};
+
+    showEdit: boolean = false;
 
     constructor(
         private modalCtrl: ModalController,
         private storage: Storage,
-        private toastController: ToastController
+        private toastController: ToastController,
+        private androidFingerprintAuth: AndroidFingerprintAuth,
+        private platform: Platform
     ) { }
 
     ngOnInit() {
         this.storage.get('proCoffee.ccInfo').then((ccInfo: any) => {
-            if(ccInfo)
-                this.cardInfo = ccInfo;
+            if(ccInfo){
+                this.tempInfo = ccInfo;
+
+                this.checkIfFingerprintIsAvailable();
+            }
         });
 
+    }
+
+    checkIfFingerprintIsAvailable(){
+
+        if(this.platform.is('cordova') && this.platform.is('android')){
+            if(this.tempInfo && this.tempInfo.CardName){
+                this.androidFingerprintAuth.isAvailable()
+                    .then((result)=> {
+                        this.showEdit = result.isAvailable;
+                    })
+                    .catch(error => console.error(error));
+            }
+        }
+    }
+
+    showCcInfo(){
+        this.androidFingerprintAuth.encrypt({ clientId: 'myAppName', username: 'myUsername', password: 'myPassword' })
+            .then(result => {
+                if (result.withFingerprint) {
+                    this.cardInfo = this.tempInfo;
+                } else if (result.withBackup) {
+                    this.cardInfo = this.tempInfo;
+                } else console.log('Didn\'t authenticate!');
+            })
+            .catch(error => {
+                if (error === this.androidFingerprintAuth.ERRORS.FINGERPRINT_CANCELLED) {
+
+                } else {
+
+                }
+            });
     }
 
     closeModal(){
@@ -62,7 +102,7 @@ export class CreditCardPage implements OnInit {
             return;
         }
 
-        if (!this.cardInfo.ExpMonth.match(/^\d{2}$/)){
+        if (Number(this.cardInfo.ExpMonth) <= 0 || Number(this.cardInfo.ExpMonth) > 12){
             this.showErrorMsg("Invalid month");
             return;
         }
